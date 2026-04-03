@@ -3,434 +3,650 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bandon Coffee Cafe | Today’s Brew</title>
-  <meta name="description" content="Bandon Coffee Cafe QR-powered guest experience." />
+  <title>Bandon Coffee Cafe | ScanCraft Killshot Elite Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --bg:#1a120d;
-      --bg2:#2a1d15;
-      --card:rgba(255,255,255,0.07);
-      --line:rgba(255,255,255,0.12);
-      --text:#f8f4ef;
-      --muted:#dbcbbd;
-      --gold:#e6c28b;
-      --cream:#f4e7d4;
-      --accent:#b8793d;
-      --shadow:0 20px 50px rgba(0,0,0,.30);
+    :root {
+      --bg: #0b0908;
+      --panel: rgba(255,255,255,0.06);
+      --panel-strong: rgba(255,255,255,0.09);
+      --text: #f5efe7;
+      --muted: #d8c9ba;
+      --accent: #c79052;
+      --accent-2: #f2d2a9;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 20px 60px rgba(0,0,0,0.45);
+      --radius: 24px;
+      --radius-sm: 18px;
+      --max: 1180px;
     }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-    body{
-      font-family: Arial, Helvetica, sans-serif;
-      color:var(--text);
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(230,194,139,.12), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(184,121,61,.12), transparent 22%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      min-height:100vh;
+        radial-gradient(circle at top, rgba(199,144,82,0.20), transparent 30%),
+        linear-gradient(180deg, #18110d 0%, #0b0908 48%, #090807 100%);
+      color: var(--text);
     }
 
-    .wrap{
-      width:min(100%, 460px);
-      margin:0 auto;
-      padding:16px 16px 34px;
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 28px));
+      margin: 0 auto;
     }
 
-    .hero{
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:22px 18px 20px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      color: var(--accent-2);
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      padding: 28px 0 40px;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
       background:
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04)),
-        linear-gradient(135deg, rgba(230,194,139,.08), rgba(184,121,61,.06));
-      box-shadow:var(--shadow);
+        linear-gradient(90deg, rgba(9,8,7,0.78) 0%, rgba(9,8,7,0.35) 48%, rgba(9,8,7,0.78) 100%),
+        linear-gradient(180deg, rgba(9,8,7,0.2) 0%, rgba(9,8,7,0.64) 100%),
+        url('assets/bandon-sign.jpg') center/cover no-repeat;
+      transform: scale(1.03);
+      z-index: 0;
     }
 
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.05);
-      color:var(--gold);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:14px;
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 24px;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: end;
+      width: 100%;
     }
 
-    h1{
-      margin:0 0 10px;
-      font-size:36px;
-      line-height:1.04;
-      letter-spacing:-0.04em;
+    .hero-copy {
+      padding: 18px 0;
     }
 
-    .sub{
-      margin:0;
-      color:var(--muted);
-      font-size:15px;
-      line-height:1.6;
+    h1 {
+      margin: 18px 0 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem, 8vw, 6.6rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      max-width: 800px;
     }
 
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:18px;
+    .lead {
+      max-width: 700px;
+      font-size: clamp(1rem, 2.1vw, 1.18rem);
+      line-height: 1.75;
+      color: var(--muted);
     }
 
-    .stat{
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:12px;
-      background:rgba(255,255,255,.04);
+    .hero-card {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
     }
 
-    .label{
-      font-size:11px;
-      text-transform:uppercase;
-      letter-spacing:.08em;
-      color:#d8b98f;
-      margin-bottom:6px;
+    .hero-card h3,
+    .section-title {
+      margin: 0 0 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1;
     }
 
-    .value{
-      font-size:14px;
-      line-height:1.35;
-      font-weight:600;
+    .hero-meta {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
     }
 
-    .section{
-      margin-top:16px;
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:18px;
-      background:var(--card);
-      box-shadow:var(--shadow);
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 14px;
     }
 
-    .section h2{
-      margin:0 0 10px;
-      font-size:19px;
-      letter-spacing:-0.02em;
+    .meta-row strong { color: var(--text); font-weight: 600; }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
     }
 
-    .section p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.6;
-      font-size:15px;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
     }
 
-    .feature{
-      margin-top:14px;
-      border-radius:22px;
-      overflow:hidden;
-      border:1px solid var(--line);
-      background:linear-gradient(180deg, rgba(230,194,139,.12), rgba(255,255,255,.04));
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, #f0c792, #c79052);
+      color: #1b1109;
+      box-shadow: 0 12px 30px rgba(199,144,82,0.3);
+    }
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
     }
 
-    .feature-image{
-      width:100%;
-      height:240px;
-      object-fit:cover;
-      display:block;
-      background:#20150f;
+    section {
+      padding: 84px 0;
+      position: relative;
     }
 
-    .feature-body{
-      padding:16px;
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 26px;
     }
 
-    .tag{
-      display:inline-block;
-      margin-bottom:12px;
-      padding:7px 10px;
-      border-radius:999px;
-      background:rgba(230,194,139,.12);
-      color:var(--gold);
-      border:1px solid rgba(230,194,139,.18);
-      font-size:12px;
-      letter-spacing:.05em;
-      text-transform:uppercase;
+    .section-copy {
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.75;
     }
 
-    .feature-title{
-      font-size:24px;
-      line-height:1.05;
-      margin:0 0 8px;
-      font-weight:800;
-      letter-spacing:-0.03em;
+    .showcase-grid,
+    .bakes-grid,
+    .menu-grid,
+    .story-grid,
+    .proof-grid {
+      display: grid;
+      gap: 18px;
     }
 
-    .list{
-      display:grid;
-      gap:10px;
-      margin-top:14px;
+    .showcase-grid {
+      grid-template-columns: 1.15fr 0.85fr;
     }
 
-    .item{
-      display:flex;
-      gap:12px;
-      align-items:flex-start;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:16px;
-      background:rgba(255,255,255,.04);
+    .bakes-grid,
+    .proof-grid {
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .num{
-      width:28px;
-      min-width:28px;
-      height:28px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      font-size:13px;
-      font-weight:700;
-      color:#2a1d15;
-      background:linear-gradient(135deg, var(--gold), var(--cream));
+    .menu-grid {
+      grid-template-columns: 1fr 1fr 1fr;
     }
 
-    .special{
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(230,194,139,.18);
-      background:rgba(230,194,139,.06);
+    .story-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: center;
     }
 
-    .special-title{
-      color:var(--gold);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:6px;
-      font-weight:700;
+    .card {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
     }
 
-    .special-copy{
-      color:var(--text);
-      font-size:15px;
-      line-height:1.5;
+    .card.pad { padding: 22px; }
+
+    .image-card {
+      min-height: 340px;
     }
 
-    .event-box{
-      margin-top:14px;
-      padding:14px;
-      border-radius:18px;
-      border:1px solid rgba(244,231,212,.16);
-      background:rgba(244,231,212,.06);
+    .image-card.tall { min-height: 520px; }
+    .image-card.medium { min-height: 420px; }
+    .image-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .event-title{
-      color:var(--cream);
-      font-size:12px;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      margin-bottom:6px;
-      font-weight:700;
+    .overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 26px;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.78) 100%);
     }
 
-    .event-copy{
-      color:var(--text);
-      font-size:15px;
-      line-height:1.5;
+    .tag {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-2);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
     }
 
-    .cta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:18px;
+    .overlay h3,
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      line-height: 1.1;
+      font-family: 'Cormorant Garamond', serif;
     }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:48px;
-      padding:12px 16px;
-      border-radius:16px;
-      text-decoration:none;
-      font-weight:700;
-      letter-spacing:-0.01em;
-      transition:transform .2s ease;
-      flex:1 1 180px;
+    .overlay p,
+    .card p,
+    .card li {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 15px;
     }
 
-    .btn:active{transform:scale(.98)}
-
-    .btn-primary{
-      color:#2a1d15;
-      background:linear-gradient(135deg, var(--gold), var(--cream));
+    .menu-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
     }
 
-    .btn-secondary{
-      color:var(--text);
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.04);
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .btn-social{
-      color:#2a1d15;
-      background:linear-gradient(135deg, #f4e7d4, #fff7ec);
-      margin-top:12px;
-      width:100%;
-      flex:unset;
+    .menu-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 15px;
+      color: var(--text);
     }
 
-    .divider{
-      height:1px;
-      margin:16px 0;
-      background:linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+    .menu-item span:last-child {
+      color: var(--accent-2);
+      font-weight: 700;
+      white-space: nowrap;
     }
 
-    .footer{
-      margin-top:16px;
-      text-align:center;
-      color:#cdb8a3;
-      font-size:12px;
-      line-height:1.5;
+    .bullet-list {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
     }
 
-    @media (max-width:380px){
-      h1{font-size:31px}
-      .hero-grid{grid-template-columns:1fr}
+    .bullet-list li {
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      margin: 0 0 16px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .stat {
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.7rem;
+      color: var(--accent-2);
+      margin-bottom: 6px;
+    }
+
+    .footer-cta {
+      padding: 34px;
+      text-align: center;
+    }
+
+    .footer-cta p {
+      max-width: 760px;
+      margin: 12px auto 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .tiny {
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .showcase-grid,
+      .story-grid,
+      .bakes-grid,
+      .proof-grid,
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-top: 26px;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .stat-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <main class="wrap">
-
-    <section class="hero">
-      <div class="eyebrow">Bandon Coffee Cafe • Bandon, Oregon</div>
-      <h1>Start Your Day<br>With Intention</h1>
-      <p class="sub">
-        More than coffee — this is your moment to slow down, reset, and enjoy something crafted with care.
-      </p>
-
-      <div class="hero-grid">
-        <div class="stat">
-          <div class="label">Today’s Feature</div>
-          <div class="value">House Blend</div>
-        </div>
-        <div class="stat">
-          <div class="label">Experience</div>
-          <div class="value">Coffee + comfort + ritual</div>
+  <header class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="eyebrow">ScanCraft Elite Demo • Bandon Coffee Cafe</div>
+        <h1>Small-town coffee. Big-time presence.</h1>
+        <p class="lead">
+          A warm, local cafe experience translated into a premium digital layer — designed to make the atmosphere feel tangible,
+          the food feel craveable, and the brand feel unforgettable the second someone scans in.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#experience">Enter the experience</a>
+          <a class="btn btn-secondary" href="#menu">Explore menu highlights</a>
         </div>
       </div>
-    </section>
 
-    <section class="section">
-      <h2>Featured Brew</h2>
-      <p>
-        A smooth, balanced roast designed for everyday moments — rich enough to satisfy, light enough to enjoy again and again.
-      </p>
+      <aside class="hero-card">
+        <h3>Why this works</h3>
+        <p>
+          Bandon Coffee Cafe already has the raw ingredients: visual warmth, memorable food, bakery depth, and a brand identity people can feel in person.
+          This demo turns that into a digital experience worth sharing.
+        </p>
+        <div class="hero-meta">
+          <div class="meta-row"><span>ScanCraft Fit</span><strong>High</strong></div>
+          <div class="meta-row"><span>Storytelling Surface</span><strong>Food + Drinks + Atmosphere</strong></div>
+          <div class="meta-row"><span>Customer Emotion</span><strong>Comfort, curiosity, return visits</strong></div>
+          <div class="meta-row"><span>Best Use</span><strong>QR card, counter display, table tent, to-go touchpoint</strong></div>
+        </div>
+      </aside>
+    </div>
+  </header>
 
-      <article class="feature">
-        <img
-          class="feature-image"
-          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80"
-          alt="Featured coffee at Bandon Coffee Cafe"
-        />
-
-        <div class="feature-body">
-          <div class="tag">Warm + Smooth • Daily Ritual</div>
-          <h3 class="feature-title">House Blend</h3>
-          <p>
-            Built for steady mornings and familiar comfort — a cup that feels easy to return to, whether it starts your day or slows it down.
+  <main>
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Featured experience</div>
+            <h2 class="section-title">This is the hook.</h2>
+          </div>
+          <p class="section-copy">
+            The goal is not to dump information. The goal is to make someone feel like they just discovered a local gem worth stepping into, ordering from, and returning to.
           </p>
         </div>
-      </article>
 
-      <div class="special">
-        <div class="special-title">Morning Ritual</div>
-        <div class="special-copy">
-          Warm cup. Quiet moment. A reset before the day begins.
-        </div>
-      </div>
-    </section>
+        <div class="showcase-grid">
+          <article class="card image-card tall">
+            <img src="assets/breakfast-combo.jpg" alt="Breakfast sandwich and blended coffee on a wooden table" />
+            <div class="overlay">
+              <span class="tag">Hero combo</span>
+              <h3>The breakfast shot that sells itself</h3>
+              <p>Loaded sandwich. Sunlit table. Blended drink with whipped cream. This is the scroll-stopper and the conversion image.</p>
+            </div>
+          </article>
 
-    <section class="section">
-      <h2>What you just unlocked</h2>
-      <div class="list">
-        <div class="item">
-          <div class="num">1</div>
-          <div>
-            <strong>Craft story</strong><br>
-            Where your coffee comes from and why it tastes the way it does.
+          <div style="display:grid; gap:18px;">
+            <article class="card image-card medium">
+              <img src="assets/breakfast-close.jpg" alt="Close-up of breakfast sandwich" />
+              <div class="overlay">
+                <span class="tag">Crave factor</span>
+                <h3>Built for appetite</h3>
+                <p>Close-up texture, melted cheese, real substance. This gives the brand weight and quality.</p>
+              </div>
+            </article>
+
+            <article class="card pad">
+              <span class="tag">Digital positioning</span>
+              <h3>What ScanCraft is doing here</h3>
+              <p>
+                Turning a physical cafe visit into a layered digital experience: featured items, bakery highlights, menu storytelling,
+                and a brand atmosphere that stays with the customer after the visit ends.
+              </p>
+              <ul class="bullet-list">
+                <li>Feature signature items with rich visuals</li>
+                <li>Guide first-time customers toward easy wins</li>
+                <li>Create higher perceived value without changing operations</li>
+              </ul>
+            </article>
           </div>
         </div>
-        <div class="item">
-          <div class="num">2</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
           <div>
-            <strong>Daily connection</strong><br>
-            Turning a simple purchase into a more memorable part of the day.
+            <div class="eyebrow">Bakery case</div>
+            <h2 class="section-title">Visual abundance sells.</h2>
           </div>
+          <p class="section-copy">
+            One of the strongest assets in-store is the bakery case. It communicates freshness, choice, comfort, and personality immediately.
+          </p>
         </div>
-        <div class="item">
-          <div class="num">3</div>
+
+        <div class="bakes-grid">
+          <article class="card image-card medium">
+            <img src="assets/cookies-1.jpg" alt="Bakery display with breakfast cookies and chocolate chip cookies" />
+            <div class="overlay">
+              <span class="tag">Bakery depth</span>
+              <h3>Breakfast & chocolate chip</h3>
+              <p>Fresh-baked presence with local, handmade energy.</p>
+            </div>
+          </article>
+
+          <article class="card image-card medium">
+            <img src="assets/pastries.jpg" alt="Pastries, donuts, brownies and apple bars in bakery case" />
+            <div class="overlay">
+              <span class="tag">Variety flex</span>
+              <h3>Pastries, brownies, sweet hits</h3>
+              <p>Enough range to turn “just coffee” into an easy add-on purchase.</p>
+            </div>
+          </article>
+
+          <article class="card image-card medium">
+            <img src="assets/cookies-2.jpg" alt="Cookies in bakery case including cranberry orange and peanut butter oatmeal" />
+            <div class="overlay">
+              <span class="tag">Repeat visit fuel</span>
+              <h3>Reason to come back</h3>
+              <p>Cookies and rotating options give the experience built-in novelty.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="wrap">
+        <div class="section-head">
           <div>
-            <strong>Return value</strong><br>
-            Future versions can include rotating beans, seasonal drinks, specials, and rewards.
+            <div class="eyebrow">Menu storytelling</div>
+            <h2 class="section-title">Make the menu feel alive.</h2>
           </div>
+          <p class="section-copy">
+            Instead of a static wall menu being the end of the story, ScanCraft can turn it into a discovery layer: highlight favorites, explain combos, and guide indecisive customers faster.
+          </p>
+        </div>
+
+        <div class="menu-grid">
+          <article class="card pad">
+            <span class="tag">Breakfast</span>
+            <h3>Morning wins</h3>
+            <div class="menu-list">
+              <div class="menu-item"><span><strong>Egg & Cheese</strong>Simple and quick</span><span>$6</span></div>
+              <div class="menu-item"><span><strong>Rise & Shine</strong>Egg, cheese, tomato & avocado</span><span>$7.75</span></div>
+              <div class="menu-item"><span><strong>Ham & Ranch</strong>Ham, egg, cheese, avocado, tomato & sriracha ranch</span><span>$8.25</span></div>
+              <div class="menu-item"><span><strong>Breakfast Burrito</strong>Flavors vary daily</span><span>$7.75</span></div>
+              <div class="menu-item"><span><strong>Country Benedict</strong>Stacked, smothered, memorable</span><span>$8+</span></div>
+            </div>
+          </article>
+
+          <article class="card pad">
+            <span class="tag">Lunch</span>
+            <h3>Midday comfort</h3>
+            <div class="menu-list">
+              <div class="menu-item"><span><strong>Turkey</strong>Deli sandwich classic</span><span>$9</span></div>
+              <div class="menu-item"><span><strong>Herby Turkey</strong>With garlic cream cheese</span><span>$9</span></div>
+              <div class="menu-item"><span><strong>Cranburkey</strong>Cream cheese & cranberry sauce</span><span>$9</span></div>
+              <div class="menu-item"><span><strong>BLT</strong>Pita sandwich option</span><span>$10</span></div>
+              <div class="menu-item"><span><strong>1/4 lb Angus Burger</strong>Served with chips or potato salad</span><span>$12</span></div>
+            </div>
+          </article>
+
+          <article class="card pad">
+            <span class="tag">Drinks</span>
+            <h3>Coffee, mochas, more</h3>
+            <div class="menu-list">
+              <div class="menu-item"><span><strong>Latte</strong>12 / 16 / 20 oz</span><span>$4.75+</span></div>
+              <div class="menu-item"><span><strong>Breve</strong>Rich and smooth</span><span>$5.50+</span></div>
+              <div class="menu-item"><span><strong>Coastal Mocha</strong>Dark chocolate</span><span>$5.75+</span></div>
+              <div class="menu-item"><span><strong>Beachcomber</strong>Chocolate + caramel</span><span>$5.75+</span></div>
+              <div class="menu-item"><span><strong>Fruit Smoothies</strong>Strawberry, mango, peach, more</span><span>$6.50</span></div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
-      <h2>Today’s Brew</h2>
-      <p>
-        Scan again tomorrow to discover new roasts, seasonal drinks, and featured blends.
-      </p>
+    <section>
+      <div class="wrap story-grid">
+        <article class="card image-card tall">
+          <img src="assets/bandon-sign.jpg" alt="Bandon Coffee Cafe interior with sign on wall" />
+          <div class="overlay">
+            <span class="tag">Brand presence</span>
+            <h3>The physical space already has character</h3>
+            <p>Warm wood, grounded tones, local-cafe energy. The branding feels personal, not corporate.</p>
+          </div>
+        </article>
 
-      <div class="special">
-        <div class="special-title">Featured Today</div>
-        <div class="special-copy">
-          House Blend is today’s highlighted pour — approachable, balanced, and built for repeat mornings.
-        </div>
-      </div>
+        <article class="card pad">
+          <div class="eyebrow">Story layer</div>
+          <p class="quote">“This is the kind of place people want to tell other people about.”</p>
+          <p>
+            That is the leverage point. ScanCraft doesn’t need to invent a fake identity here. It only needs to capture, package,
+            and amplify what already exists in the room: comfort, food quality, local flavor, and a visual experience strong enough to convert curiosity into action.
+          </p>
 
-      <div class="event-box">
-        <div class="event-title">Future Potential</div>
-        <div class="event-copy">
-          This system can also highlight pastries, bean origins, seasonal releases, loyalty perks, or community events.
-        </div>
-      </div>
-
-      <a class="btn btn-social" href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
-        Follow Bandon Coffee Cafe
-      </a>
-    </section>
-
-    <section class="section">
-      <h2>Why this matters</h2>
-      <p>
-        Instead of a guest just ordering and moving on, this creates a simple branded moment. It adds warmth, connection, and a digital experience layer without interrupting the natural rhythm of the cafe.
-      </p>
-
-      <div class="divider"></div>
-
-      <div class="cta">
-        <a class="btn btn-primary" href="#" onclick="alert('This can later link to featured drinks, rewards, seasonal specials, or cafe updates.'); return false;">
-          Unlock Today’s Brew
-        </a>
-        <a class="btn btn-secondary" href="#">
-          Call Bandon Coffee Cafe
-        </a>
+          <div class="stat-row">
+            <div class="stat"><strong>1st</strong><span>Visual impression gets elevated before the owner says a word.</span></div>
+            <div class="stat"><strong>2nd</strong><span>Featured items guide what a new customer is most likely to order.</span></div>
+            <div class="stat"><strong>3rd</strong><span>Digital experience keeps the brand alive beyond the counter.</span></div>
+          </div>
+        </article>
       </div>
     </section>
 
-    <div class="footer">
-      Bandon Coffee Cafe • Bandon, Oregon<br>
-      ScanCraft demo experience
-    </div>
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Proof of concept</div>
+            <h2 class="section-title">This is already enough to impress.</h2>
+          </div>
+          <p class="section-copy">
+            Even with simple in-store captures, the cafe already presents as warm, established, and layered. With a proper ScanCraft finish, this becomes a polished client-facing digital experience.
+          </p>
+        </div>
 
+        <div class="proof-grid">
+          <article class="card pad">
+            <span class="tag">What the owner sees</span>
+            <h3>Professional presentation</h3>
+            <p>A cafe that feels more premium online without needing a full rebuild of operations, branding, or staffing.</p>
+          </article>
+          <article class="card pad">
+            <span class="tag">What customers feel</span>
+            <h3>Confidence in ordering</h3>
+            <p>Photos, highlights, and guided picks make the experience easier, more engaging, and more memorable.</p>
+          </article>
+          <article class="card pad">
+            <span class="tag">What ScanCraft proves</span>
+            <h3>Real-world business lift</h3>
+            <p>Physical-to-digital storytelling works especially well for spaces where atmosphere and product visuals already carry emotional weight.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <article class="card footer-cta">
+          <div class="eyebrow">ScanCraft close</div>
+          <h2 class="section-title" style="margin-top:14px;">Bandon Coffee Cafe, but elevated.</h2>
+          <p>
+            This demo shows exactly how ScanCraft can turn a local cafe into a richer digital experience: cleaner presentation, higher perceived value,
+            better product storytelling, and a stronger emotional connection the second someone scans in.
+          </p>
+          <div class="cta-row" style="justify-content:center; margin-top:22px;">
+            <a class="btn btn-primary" href="#experience">Replay the experience</a>
+            <a class="btn btn-secondary" href="#menu">See menu layer</a>
+          </div>
+          <div style="margin-top:20px;" class="tiny">ScanCraft • Premium digital experience layer for physical businesses</div>
+        </article>
+      </div>
+    </section>
   </main>
 </body>
 </html>
