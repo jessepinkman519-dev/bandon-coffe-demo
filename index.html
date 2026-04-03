@@ -3,39 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bandon Coffee Cafe | ScanCraft Killshot Elite Demo</title>
+  <title>Bandon Coffee Cafe | ScanCraft Killshot Elite</title>
+  <meta name="description" content="ScanCraft elite demo for Bandon Coffee Cafe." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --bg: #0b0908;
+      --bg: #0a0908;
+      --bg-2: #15110d;
       --panel: rgba(255,255,255,0.06);
-      --panel-strong: rgba(255,255,255,0.09);
-      --text: #f5efe7;
-      --muted: #d8c9ba;
-      --accent: #c79052;
-      --accent-2: #f2d2a9;
-      --line: rgba(255,255,255,0.12);
+      --panel-2: rgba(255,255,255,0.08);
+      --line: rgba(255,255,255,0.11);
+      --text: #f7f0e7;
+      --muted: #d9c8b7;
+      --gold: #d49a5d;
+      --gold-2: #f0c48f;
       --shadow: 0 20px 60px rgba(0,0,0,0.45);
-      --radius: 24px;
+      --radius: 26px;
       --radius-sm: 18px;
       --max: 1180px;
+      --transition: 0.35s ease;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background:
-        radial-gradient(circle at top, rgba(199,144,82,0.20), transparent 30%),
-        linear-gradient(180deg, #18110d 0%, #0b0908 48%, #090807 100%);
-      color: var(--text);
+
+    html {
+      scroll-behavior: smooth;
     }
 
-    img { max-width: 100%; display: block; }
-    a { color: inherit; text-decoration: none; }
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top, rgba(212,154,93,0.18), transparent 28%),
+        linear-gradient(180deg, #18120d 0%, #0c0a09 45%, #090807 100%);
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
     .wrap {
       width: min(var(--max), calc(100% - 28px));
@@ -51,19 +68,19 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,0.04);
       backdrop-filter: blur(10px);
-      color: var(--accent-2);
+      color: var(--gold-2);
       font-size: 12px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
     .hero {
-      position: relative;
       min-height: 100svh;
+      position: relative;
       display: flex;
       align-items: center;
-      padding: 28px 0 40px;
       overflow: hidden;
+      padding: 28px 0 44px;
     }
 
     .hero::before {
@@ -71,47 +88,118 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, rgba(9,8,7,0.78) 0%, rgba(9,8,7,0.35) 48%, rgba(9,8,7,0.78) 100%),
-        linear-gradient(180deg, rgba(9,8,7,0.2) 0%, rgba(9,8,7,0.64) 100%),
-        url('assets/bandon-sign.jpg') center/cover no-repeat;
-      transform: scale(1.03);
+        linear-gradient(90deg, rgba(8,8,8,0.82) 0%, rgba(8,8,8,0.36) 48%, rgba(8,8,8,0.82) 100%),
+        linear-gradient(180deg, rgba(8,8,8,0.18) 0%, rgba(8,8,8,0.62) 100%),
+        url("bandon-sign.jpg") center/cover no-repeat;
+      transform: scale(1.04);
       z-index: 0;
+      filter: saturate(1.05);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -20% -140px -20%;
+      height: 220px;
+      background: radial-gradient(circle, rgba(212,154,93,0.18) 0%, transparent 60%);
+      z-index: 0;
+      pointer-events: none;
     }
 
     .hero-grid {
       position: relative;
       z-index: 1;
       display: grid;
-      gap: 24px;
       grid-template-columns: 1.15fr 0.85fr;
-      align-items: end;
+      gap: 24px;
       width: 100%;
+      align-items: end;
     }
 
     .hero-copy {
-      padding: 18px 0;
+      padding: 10px 0 24px;
     }
 
     h1 {
       margin: 18px 0 14px;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(3.2rem, 8vw, 6.6rem);
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(3.25rem, 8vw, 6.8rem);
       line-height: 0.92;
-      letter-spacing: -0.03em;
-      max-width: 800px;
+      letter-spacing: -0.035em;
+      max-width: 850px;
+      text-wrap: balance;
     }
 
     .lead {
-      max-width: 700px;
-      font-size: clamp(1rem, 2.1vw, 1.18rem);
-      line-height: 1.75;
+      max-width: 740px;
+      font-size: clamp(1rem, 2.2vw, 1.18rem);
+      line-height: 1.78;
       color: var(--muted);
     }
 
-    .hero-card {
-      padding: 22px;
+    .selected {
+      margin-top: 18px;
+      color: var(--gold-2);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 15px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      transition: transform var(--transition), opacity var(--transition), background var(--transition), border-color var(--transition);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.06) 35%, rgba(255,255,255,0.18) 50%, rgba(255,255,255,0.06) 65%, transparent 100%);
+      transform: translateX(-120%);
+      transition: transform 0.8s ease;
+      z-index: -1;
+    }
+
+    .btn:hover::after {
+      transform: translateX(120%);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-2), var(--gold));
+      color: #1b120b;
+      box-shadow: 0 14px 34px rgba(212,154,93,0.26);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
       border: 1px solid var(--line);
+      color: var(--text);
+    }
+
+    .glass {
+      padding: 22px;
       border-radius: var(--radius);
+      border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.05));
       backdrop-filter: blur(14px);
       box-shadow: var(--shadow);
@@ -120,9 +208,16 @@
     .hero-card h3,
     .section-title {
       margin: 0 0 8px;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: "Cormorant Garamond", serif;
       font-size: clamp(2rem, 4vw, 3.4rem);
       line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
     }
 
     .hero-meta {
@@ -141,36 +236,10 @@
       font-size: 14px;
     }
 
-    .meta-row strong { color: var(--text); font-weight: 600; }
-
-    .cta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 20px;
-      border-radius: 999px;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-      transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-    .btn-primary {
-      background: linear-gradient(135deg, #f0c792, #c79052);
-      color: #1b1109;
-      box-shadow: 0 12px 30px rgba(199,144,82,0.3);
-    }
-    .btn-secondary {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
+    .meta-row strong {
       color: var(--text);
+      font-weight: 600;
+      text-align: right;
     }
 
     section {
@@ -187,36 +256,41 @@
     }
 
     .section-copy {
-      max-width: 720px;
+      max-width: 740px;
       color: var(--muted);
-      line-height: 1.75;
+      line-height: 1.8;
     }
 
-    .showcase-grid,
-    .bakes-grid,
-    .menu-grid,
-    .story-grid,
-    .proof-grid {
+    .grid-showcase,
+    .grid-bakes,
+    .grid-proof,
+    .grid-menu,
+    .grid-story {
       display: grid;
       gap: 18px;
     }
 
-    .showcase-grid {
+    .grid-showcase {
       grid-template-columns: 1.15fr 0.85fr;
     }
 
-    .bakes-grid,
-    .proof-grid {
+    .grid-bakes,
+    .grid-proof {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    .menu-grid {
-      grid-template-columns: 1fr 1fr 1fr;
+    .grid-menu {
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    .story-grid {
+    .grid-story {
       grid-template-columns: 0.9fr 1.1fr;
       align-items: center;
+    }
+
+    .stack {
+      display: grid;
+      gap: 18px;
     }
 
     .card {
@@ -226,27 +300,47 @@
       border: 1px solid var(--line);
       background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
       box-shadow: var(--shadow);
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
     }
 
-    .card.pad { padding: 22px; }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(240,196,143,0.26);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.52);
+    }
+
+    .card.pad {
+      padding: 22px;
+    }
 
     .image-card {
       min-height: 340px;
     }
 
-    .image-card.tall { min-height: 520px; }
-    .image-card.medium { min-height: 420px; }
+    .image-card.tall {
+      min-height: 540px;
+    }
+
+    .image-card.medium {
+      min-height: 420px;
+    }
+
     .image-card img {
-      width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 1.1s ease;
+    }
+
+    .card:hover img {
+      transform: scale(1.035);
     }
 
     .overlay {
       position: absolute;
       inset: auto 0 0 0;
       padding: 26px;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.78) 100%);
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.82) 100%);
+      z-index: 2;
     }
 
     .tag {
@@ -257,7 +351,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.14em;
-      color: var(--accent-2);
+      color: var(--gold-2);
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.14);
     }
@@ -265,9 +359,9 @@
     .overlay h3,
     .card h3 {
       margin: 0 0 8px;
-      font-size: clamp(1.4rem, 2vw, 2rem);
-      line-height: 1.1;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(1.45rem, 2vw, 2rem);
+      line-height: 1.08;
     }
 
     .overlay p,
@@ -275,8 +369,23 @@
     .card li {
       margin: 0;
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 15px;
+    }
+
+    .bullet-list {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .bullet-list li {
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.03);
     }
 
     .menu-list {
@@ -301,31 +410,16 @@
     }
 
     .menu-item span:last-child {
-      color: var(--accent-2);
+      color: var(--gold-2);
       font-weight: 700;
       white-space: nowrap;
     }
 
-    .bullet-list {
-      display: grid;
-      gap: 12px;
-      margin: 18px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .bullet-list li {
-      padding: 14px 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.03);
-    }
-
     .quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      line-height: 1.1;
       margin: 0 0 16px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.08;
     }
 
     .stat-row {
@@ -345,7 +439,7 @@
     .stat strong {
       display: block;
       font-size: 1.7rem;
-      color: var(--accent-2);
+      color: var(--gold-2);
       margin-bottom: 6px;
     }
 
@@ -355,10 +449,10 @@
     }
 
     .footer-cta p {
-      max-width: 760px;
+      max-width: 780px;
       margin: 12px auto 0;
       color: var(--muted);
-      line-height: 1.75;
+      line-height: 1.8;
     }
 
     .tiny {
@@ -368,64 +462,118 @@
       text-transform: uppercase;
     }
 
+    .reveal {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+      will-change: opacity, transform;
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .shine {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .shine::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.05) 35%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.05) 65%, transparent 100%);
+      transform: translateX(-120%);
+      transition: transform 1s ease;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .shine:hover::after {
+      transform: translateX(120%);
+    }
+
     @media (max-width: 980px) {
       .hero-grid,
-      .showcase-grid,
-      .story-grid,
-      .bakes-grid,
-      .proof-grid,
-      .menu-grid {
+      .grid-showcase,
+      .grid-bakes,
+      .grid-proof,
+      .grid-menu,
+      .grid-story {
         grid-template-columns: 1fr;
       }
 
       .hero {
         min-height: auto;
-        padding-top: 26px;
       }
 
       .section-head {
+        flex-direction: column;
         align-items: start;
+      }
+
+      .stat-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: clamp(2.7rem, 14vw, 4rem);
+      }
+
+      .cta-row {
         flex-direction: column;
       }
 
-      .stat-row { grid-template-columns: 1fr; }
+      .btn {
+        width: 100%;
+      }
+
+      .hero-copy,
+      .hero-card {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <header class="hero">
+
+  <header class="hero reveal">
     <div class="wrap hero-grid">
       <div class="hero-copy">
         <div class="eyebrow">ScanCraft Elite Demo • Bandon Coffee Cafe</div>
-        <h1>Small-town coffee. Big-time presence.</h1>
+        <h1>This coffee shop wasn’t supposed to hit like this.</h1>
         <p class="lead">
-          A warm, local cafe experience translated into a premium digital layer — designed to make the atmosphere feel tangible,
-          the food feel craveable, and the brand feel unforgettable the second someone scans in.
+          Scan. Discover. Experience what makes this place different. This is a premium digital layer built to turn a warm local cafe into something people instantly feel, remember, and want to come back to.
         </p>
+        <div class="selected">You were selected to view this experience.</div>
+
         <div class="cta-row">
           <a class="btn btn-primary" href="#experience">Enter the experience</a>
           <a class="btn btn-secondary" href="#menu">Explore menu highlights</a>
         </div>
       </div>
 
-      <aside class="hero-card">
+      <aside class="glass hero-card">
         <h3>Why this works</h3>
         <p>
-          Bandon Coffee Cafe already has the raw ingredients: visual warmth, memorable food, bakery depth, and a brand identity people can feel in person.
-          This demo turns that into a digital experience worth sharing.
+          Bandon Coffee Cafe already has the raw ingredients: warmth, character, quality food, bakery depth, and a local vibe people can actually feel. This demo turns that into a high-end digital experience that elevates perception instantly.
         </p>
+
         <div class="hero-meta">
           <div class="meta-row"><span>ScanCraft Fit</span><strong>High</strong></div>
-          <div class="meta-row"><span>Storytelling Surface</span><strong>Food + Drinks + Atmosphere</strong></div>
-          <div class="meta-row"><span>Customer Emotion</span><strong>Comfort, curiosity, return visits</strong></div>
-          <div class="meta-row"><span>Best Use</span><strong>QR card, counter display, table tent, to-go touchpoint</strong></div>
+          <div class="meta-row"><span>Visual Strength</span><strong>Food + Atmosphere + Case</strong></div>
+          <div class="meta-row"><span>Emotional Pull</span><strong>Comfort, curiosity, return visits</strong></div>
+          <div class="meta-row"><span>Best Deployment</span><strong>QR card, counter stand, table tent</strong></div>
         </div>
       </aside>
     </div>
   </header>
 
   <main>
-    <section id="experience">
+    <section id="experience" class="reveal">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -433,41 +581,40 @@
             <h2 class="section-title">This is the hook.</h2>
           </div>
           <p class="section-copy">
-            The goal is not to dump information. The goal is to make someone feel like they just discovered a local gem worth stepping into, ordering from, and returning to.
+            This is not about dumping info. This is about making someone feel like they just discovered a local place worth visiting, ordering from, and telling other people about.
           </p>
         </div>
 
-        <div class="showcase-grid">
-          <article class="card image-card tall">
-            <img src="assets/breakfast-combo.jpg" alt="Breakfast sandwich and blended coffee on a wooden table" />
+        <div class="grid-showcase reveal">
+          <article class="card image-card tall reveal shine">
+            <img src="breakfast-combo.jpg" alt="Breakfast sandwich and blended coffee on a wooden table">
             <div class="overlay">
               <span class="tag">Hero combo</span>
-              <h3>The breakfast shot that sells itself</h3>
-              <p>Loaded sandwich. Sunlit table. Blended drink with whipped cream. This is the scroll-stopper and the conversion image.</p>
+              <h3>The shot that sells everything</h3>
+              <p>Loaded breakfast sandwich. Blended drink. Natural table light. This is the conversion image.</p>
             </div>
           </article>
 
-          <div style="display:grid; gap:18px;">
-            <article class="card image-card medium">
-              <img src="assets/breakfast-close.jpg" alt="Close-up of breakfast sandwich" />
+          <div class="stack">
+            <article class="card image-card medium reveal shine">
+              <img src="breakfast-close.jpg" alt="Close-up of breakfast sandwich">
               <div class="overlay">
                 <span class="tag">Crave factor</span>
-                <h3>Built for appetite</h3>
-                <p>Close-up texture, melted cheese, real substance. This gives the brand weight and quality.</p>
+                <h3>Built with real appetite in mind</h3>
+                <p>Melted cheese, texture, substance, no fluff. This gives the brand weight.</p>
               </div>
             </article>
 
-            <article class="card pad">
-              <span class="tag">Digital positioning</span>
-              <h3>What ScanCraft is doing here</h3>
+            <article class="card pad reveal">
+              <span class="tag">What ScanCraft is doing</span>
+              <h3>Turning a cafe visit into an experience layer</h3>
               <p>
-                Turning a physical cafe visit into a layered digital experience: featured items, bakery highlights, menu storytelling,
-                and a brand atmosphere that stays with the customer after the visit ends.
+                Instead of a customer seeing a cafe once and forgetting it, this gives the business a premium digital presence that extends the atmosphere, highlights top items, and increases perceived value.
               </p>
               <ul class="bullet-list">
-                <li>Feature signature items with rich visuals</li>
-                <li>Guide first-time customers toward easy wins</li>
-                <li>Create higher perceived value without changing operations</li>
+                <li>Feature signature products with premium visuals</li>
+                <li>Guide first-time customers toward easy winning picks</li>
+                <li>Create a cleaner story from curiosity to purchase</li>
               </ul>
             </article>
           </div>
@@ -475,7 +622,7 @@
       </div>
     </section>
 
-    <section>
+    <section class="reveal">
       <div class="wrap">
         <div class="section-head">
           <div>
@@ -483,81 +630,81 @@
             <h2 class="section-title">Visual abundance sells.</h2>
           </div>
           <p class="section-copy">
-            One of the strongest assets in-store is the bakery case. It communicates freshness, choice, comfort, and personality immediately.
+            The bakery case is one of the strongest in-store assets. It instantly communicates freshness, options, comfort, and local personality.
           </p>
         </div>
 
-        <div class="bakes-grid">
-          <article class="card image-card medium">
-            <img src="assets/cookies-1.jpg" alt="Bakery display with breakfast cookies and chocolate chip cookies" />
+        <div class="grid-bakes reveal">
+          <article class="card image-card medium reveal shine">
+            <img src="cookies-1.jpg" alt="Bakery display with cookies">
             <div class="overlay">
               <span class="tag">Bakery depth</span>
-              <h3>Breakfast & chocolate chip</h3>
-              <p>Fresh-baked presence with local, handmade energy.</p>
+              <h3>Fresh-baked energy</h3>
+              <p>Handmade feel. Local warmth. Easy add-on temptation.</p>
             </div>
           </article>
 
-          <article class="card image-card medium">
-            <img src="assets/pastries.jpg" alt="Pastries, donuts, brownies and apple bars in bakery case" />
+          <article class="card image-card medium reveal shine">
+            <img src="pastries.jpg" alt="Pastries and sweets in bakery case">
             <div class="overlay">
               <span class="tag">Variety flex</span>
-              <h3>Pastries, brownies, sweet hits</h3>
-              <p>Enough range to turn “just coffee” into an easy add-on purchase.</p>
+              <h3>More than coffee</h3>
+              <p>Pastries, sweets, and visual range turn a stop into a full experience.</p>
             </div>
           </article>
 
-          <article class="card image-card medium">
-            <img src="assets/cookies-2.jpg" alt="Cookies in bakery case including cranberry orange and peanut butter oatmeal" />
+          <article class="card image-card medium reveal shine">
+            <img src="cookies-2.jpg" alt="More cookies in bakery case">
             <div class="overlay">
-              <span class="tag">Repeat visit fuel</span>
+              <span class="tag">Return factor</span>
               <h3>Reason to come back</h3>
-              <p>Cookies and rotating options give the experience built-in novelty.</p>
+              <p>Options create novelty. Novelty creates repeat visits.</p>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="menu">
+    <section id="menu" class="reveal">
       <div class="wrap">
         <div class="section-head">
           <div>
-            <div class="eyebrow">Menu storytelling</div>
+            <div class="eyebrow">Menu layer</div>
             <h2 class="section-title">Make the menu feel alive.</h2>
           </div>
           <p class="section-copy">
-            Instead of a static wall menu being the end of the story, ScanCraft can turn it into a discovery layer: highlight favorites, explain combos, and guide indecisive customers faster.
+            A static menu tells. A ScanCraft layer guides. It helps people discover highlights faster, feel more confident ordering, and connect the visual experience to the actual offer.
           </p>
         </div>
 
-        <div class="menu-grid">
-          <article class="card pad">
+        <div class="grid-menu reveal">
+          <article class="card pad reveal">
             <span class="tag">Breakfast</span>
             <h3>Morning wins</h3>
             <div class="menu-list">
-              <div class="menu-item"><span><strong>Egg & Cheese</strong>Simple and quick</span><span>$6</span></div>
+              <div class="menu-item"><span><strong>Egg & Cheese</strong>Simple and fast</span><span>$6</span></div>
               <div class="menu-item"><span><strong>Rise & Shine</strong>Egg, cheese, tomato & avocado</span><span>$7.75</span></div>
               <div class="menu-item"><span><strong>Ham & Ranch</strong>Ham, egg, cheese, avocado, tomato & sriracha ranch</span><span>$8.25</span></div>
               <div class="menu-item"><span><strong>Breakfast Burrito</strong>Flavors vary daily</span><span>$7.75</span></div>
-              <div class="menu-item"><span><strong>Country Benedict</strong>Stacked, smothered, memorable</span><span>$8+</span></div>
+              <div class="menu-item"><span><strong>Country Benedict</strong>Stacked and memorable</span><span>$8+</span></div>
             </div>
           </article>
 
-          <article class="card pad">
+          <article class="card pad reveal">
             <span class="tag">Lunch</span>
             <h3>Midday comfort</h3>
             <div class="menu-list">
               <div class="menu-item"><span><strong>Turkey</strong>Deli sandwich classic</span><span>$9</span></div>
               <div class="menu-item"><span><strong>Herby Turkey</strong>With garlic cream cheese</span><span>$9</span></div>
               <div class="menu-item"><span><strong>Cranburkey</strong>Cream cheese & cranberry sauce</span><span>$9</span></div>
-              <div class="menu-item"><span><strong>BLT</strong>Pita sandwich option</span><span>$10</span></div>
+              <div class="menu-item"><span><strong>BLT</strong>Pita option</span><span>$10</span></div>
               <div class="menu-item"><span><strong>1/4 lb Angus Burger</strong>Served with chips or potato salad</span><span>$12</span></div>
             </div>
           </article>
 
-          <article class="card pad">
+          <article class="card pad reveal">
             <span class="tag">Drinks</span>
-            <h3>Coffee, mochas, more</h3>
+            <h3>Coffee and craveables</h3>
             <div class="menu-list">
               <div class="menu-item"><span><strong>Latte</strong>12 / 16 / 20 oz</span><span>$4.75+</span></div>
               <div class="menu-item"><span><strong>Breve</strong>Rich and smooth</span><span>$5.50+</span></div>
@@ -570,83 +717,105 @@
       </div>
     </section>
 
-    <section>
-      <div class="wrap story-grid">
-        <article class="card image-card tall">
-          <img src="assets/bandon-sign.jpg" alt="Bandon Coffee Cafe interior with sign on wall" />
+    <section class="reveal">
+      <div class="wrap grid-story reveal">
+        <article class="card image-card tall reveal shine">
+          <img src="bandon-sign.jpg" alt="Bandon Coffee Cafe interior sign">
           <div class="overlay">
             <span class="tag">Brand presence</span>
-            <h3>The physical space already has character</h3>
-            <p>Warm wood, grounded tones, local-cafe energy. The branding feels personal, not corporate.</p>
+            <h3>The space already has character</h3>
+            <p>Warm wood. Personal feel. Local identity. The digital layer only amplifies what is already there.</p>
           </div>
         </article>
 
-        <article class="card pad">
+        <article class="card pad reveal">
           <div class="eyebrow">Story layer</div>
           <p class="quote">“This is the kind of place people want to tell other people about.”</p>
           <p>
-            That is the leverage point. ScanCraft doesn’t need to invent a fake identity here. It only needs to capture, package,
-            and amplify what already exists in the room: comfort, food quality, local flavor, and a visual experience strong enough to convert curiosity into action.
+            That’s the leverage point. ScanCraft does not need to invent a fake identity here. It simply captures what already exists and sharpens it into something that feels more premium, more intentional, and easier to remember.
           </p>
 
           <div class="stat-row">
-            <div class="stat"><strong>1st</strong><span>Visual impression gets elevated before the owner says a word.</span></div>
-            <div class="stat"><strong>2nd</strong><span>Featured items guide what a new customer is most likely to order.</span></div>
-            <div class="stat"><strong>3rd</strong><span>Digital experience keeps the brand alive beyond the counter.</span></div>
+            <div class="stat"><strong>1st</strong><span>Visual impression gets elevated before anyone explains a thing.</span></div>
+            <div class="stat"><strong>2nd</strong><span>Featured items steer first-time customers toward strong choices.</span></div>
+            <div class="stat"><strong>3rd</strong><span>The brand stays alive after the physical visit ends.</span></div>
           </div>
         </article>
       </div>
     </section>
 
-    <section>
+    <section class="reveal">
       <div class="wrap">
         <div class="section-head">
           <div>
             <div class="eyebrow">Proof of concept</div>
-            <h2 class="section-title">This is already enough to impress.</h2>
+            <h2 class="section-title">This already feels real.</h2>
           </div>
           <p class="section-copy">
-            Even with simple in-store captures, the cafe already presents as warm, established, and layered. With a proper ScanCraft finish, this becomes a polished client-facing digital experience.
+            These were simple in-store captures, not a full media production. And it still presents strong. That’s exactly why this concept works.
           </p>
         </div>
 
-        <div class="proof-grid">
-          <article class="card pad">
+        <div class="grid-proof reveal">
+          <article class="card pad reveal">
             <span class="tag">What the owner sees</span>
             <h3>Professional presentation</h3>
-            <p>A cafe that feels more premium online without needing a full rebuild of operations, branding, or staffing.</p>
+            <p>A cafe that feels more premium without needing to rebuild operations, staff, or identity.</p>
           </article>
-          <article class="card pad">
+
+          <article class="card pad reveal">
             <span class="tag">What customers feel</span>
             <h3>Confidence in ordering</h3>
-            <p>Photos, highlights, and guided picks make the experience easier, more engaging, and more memorable.</p>
+            <p>They can see the products, feel the atmosphere, and trust the experience faster.</p>
           </article>
-          <article class="card pad">
+
+          <article class="card pad reveal">
             <span class="tag">What ScanCraft proves</span>
-            <h3>Real-world business lift</h3>
-            <p>Physical-to-digital storytelling works especially well for spaces where atmosphere and product visuals already carry emotional weight.</p>
+            <h3>Physical to digital works</h3>
+            <p>Especially when the food, visuals, and vibe already carry emotional weight in person.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section>
+    <section class="reveal">
       <div class="wrap">
-        <article class="card footer-cta">
+        <article class="card footer-cta reveal shine">
           <div class="eyebrow">ScanCraft close</div>
-          <h2 class="section-title" style="margin-top:14px;">Bandon Coffee Cafe, but elevated.</h2>
+          <h2 class="section-title" style="margin-top:14px;">Imagine this for your business.</h2>
           <p>
-            This demo shows exactly how ScanCraft can turn a local cafe into a richer digital experience: cleaner presentation, higher perceived value,
-            better product storytelling, and a stronger emotional connection the second someone scans in.
+            This is what happens when your physical experience meets a digital layer designed to convert attention into action. Better presentation. Stronger perceived value. Cleaner storytelling. A smoother path from curiosity to purchase.
           </p>
+
           <div class="cta-row" style="justify-content:center; margin-top:22px;">
-            <a class="btn btn-primary" href="#experience">Replay the experience</a>
-            <a class="btn btn-secondary" href="#menu">See menu layer</a>
+            <a class="btn btn-primary" href="#experience">Let’s build yours</a>
+            <a class="btn btn-secondary" href="#menu">See the menu layer</a>
           </div>
+
           <div style="margin-top:20px;" class="tiny">ScanCraft • Premium digital experience layer for physical businesses</div>
         </article>
       </div>
     </section>
   </main>
+
+  <script>
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.14
+    });
+
+    revealElements.forEach((el, index) => {
+      el.style.transitionDelay = `${Math.min(index * 70, 420)}ms`;
+      revealObserver.observe(el);
+    });
+  </script>
 </body>
 </html>
